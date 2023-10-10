@@ -3,7 +3,8 @@
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,10 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
 
-    $api->get('hello', function(){
+    $api->get('/', function(){
         return "config";
     });
+
+    $api->post('/users/signup', [UserController::class, 'store']);
 });
+
