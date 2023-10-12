@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\Auth\UserAuthController;
+use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,38 +18,30 @@ use App\Http\Controllers\UserController;
 */
 
 
-/**
- *  The code below is how a typical route should be when using spatie and sanctum for authenciation
- *
- * **/
+Route::prefix('v1')->group(function (){
 
+    Route::group(['prefix' => 'users'], function() {
+        Route::post('signup', [UserAuthController::class, 'store']);
+        Route::post('login', [UserAuthController::class, 'login']);
 
-//only admin and system admin can access this route
-
-// Route::prefix('admin')->middleware(['auth:sanctum', 'role:super-admin|system-admin'])->group(function () {
-
-//         Route::get('/users', function() {
-//             return response()->json([
-
-//                 "users" => User::with('roles')->get()
-//             ]);
-//         });
-// });
-
-
-// Route::post('/login', [AdminController::class, 'login']);
-
-
-
-$api = app('Dingo\Api\Routing\Router');
-
-
-$api->version('v1', function ($api) {
-
-    $api->get('/', function(){
-        return "config";
+        Route::middleware('auth:sanctum')->group(function() {
+            Route::post('logout', [UserAuthController::class, 'logout']);
+        });
     });
 
-    $api->post('/users/signup', [UserController::class, 'store']);
+
+    Route::prefix('admin')->group(function(){
+        Route::post('login', [AdminAuthController::class, 'login']);
+
+        Route::middleware(['auth:sanctum', 'role:super-admin'])->group(function() {
+            Route::get('/users', [AdminUserController::class, 'index']);
+            Route::post('/logout', [AdminAuthController::class, 'logout']);
+        });
+
+    });
+
 });
+
+
+
 

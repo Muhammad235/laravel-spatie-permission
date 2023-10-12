@@ -62,10 +62,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class, // Use your custom User model here
+            'model' => App\Models\User::class,
         ],
-
-
 
         // 'users' => [
         //     'driver' => 'database',

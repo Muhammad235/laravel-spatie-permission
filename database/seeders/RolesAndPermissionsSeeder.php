@@ -15,7 +15,7 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-              // Reset cached roles and permissions
+               // Reset cached roles and permissions
               app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
               $addUser = 'add user';
@@ -128,6 +128,5 @@ class RolesAndPermissionsSeeder extends Seeder
             ->givePermissionTo([
                 $viewProduct
             ]);
-
     }
 }
