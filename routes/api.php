@@ -26,10 +26,16 @@ Route::prefix('v1')->group(function (){
         Route::post('login', [UserAuthController::class, 'login']);
 
         Route::middleware('auth:sanctum')->group(function() {
-            // Route::get('profile', [UserProfileController::class, 'index']);
+            Route::get('profile', [UserProfileController::class, 'index']);
             Route::post('logout', [UserAuthController::class, 'logout']);
+            Route::apiResource('profile', UserProfileController::class);
         });
     });
+
+    // Route::middleware('auth:sanctum')->group(function() {
+    //     Route::get('profile', [UserProfileController::class, 'index']);
+    //     Route::post('logout', [UserAuthController::class, 'logout']);
+    // });
 
 
     Route::prefix('admin')->group(function(){

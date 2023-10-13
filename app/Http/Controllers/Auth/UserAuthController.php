@@ -28,6 +28,8 @@ class UserAuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->assignRole('customer');
+
         $token = $user->createToken($user->name)->plainTextToken;
 
         return response()->json([

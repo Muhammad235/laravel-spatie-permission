@@ -27,5 +27,6 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'string', 'unique:users,email', 'max:255'],
             'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
         ];
+
     }
 }
