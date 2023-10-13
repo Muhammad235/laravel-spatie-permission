@@ -25,9 +25,8 @@ Route::prefix('v1')->group(function (){
         Route::post('signup', [UserAuthController::class, 'store']);
         Route::post('login', [UserAuthController::class, 'login']);
 
-        Route::get('profile', [UserProfileController::class, 'index']);
-
         Route::middleware('auth:sanctum')->group(function() {
+            // Route::get('profile', [UserProfileController::class, 'index']);
             Route::post('logout', [UserAuthController::class, 'logout']);
         });
     });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class AdminUserController extends Controller
 {
@@ -15,11 +16,12 @@ class AdminUserController extends Controller
     {
         //user roles and permissions
         // $users = User::with('roles.permissions')->get();
+        // $users = User::with('roles')->get();
 
-        $users = User::with('roles')->get();
+        $users = UserResource::collection(User::all());
 
         if (!$users) {
-            return response()->json(['error' => 'No users found'], 401);
+            return response()->json(['error' => 'No users found'], 404);
         }
 
         return response()->json([
