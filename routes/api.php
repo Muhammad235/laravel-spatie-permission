@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -23,6 +24,8 @@ Route::prefix('v1')->group(function (){
     Route::group(['prefix' => 'users'], function() {
         Route::post('signup', [UserAuthController::class, 'store']);
         Route::post('login', [UserAuthController::class, 'login']);
+
+        Route::get('profile', [UserProfileController::class, 'index']);
 
         Route::middleware('auth:sanctum')->group(function() {
             Route::post('logout', [UserAuthController::class, 'logout']);

@@ -17,7 +17,10 @@ class UserProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'firstname' => $this->faker->firstName(),
+            'lastname' => $this->faker->lastName(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'active' => $this->faker->boolean(),
         ];
     }
 }
