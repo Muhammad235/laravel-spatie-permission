@@ -30,7 +30,7 @@ class UserProfileController extends Controller
      */
     public function store(UserProfileRequest $request)
     {
-        $request->validated(); // You don't need to pass $request->all()
+        $request->validated();
 
         $user = auth()->user();
 
@@ -40,7 +40,7 @@ class UserProfileController extends Controller
             ], 401);
         }
 
-        $createProfile = $user->userProfile()->create([
+        $createProfile = $user->userProfile()->updateOrCreate([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'gender' => $request->gender,
@@ -53,13 +53,37 @@ class UserProfileController extends Controller
     }
 
 
-
     /**
      * Update the specified resource in storage.
      */
-    // public function update(UserProfileRequest $request, UserProfile $userProfile)
+    // public function update(UserProfileRequest $request, UserProfile $UserProfile)
     // {
+    //     // Validate the request data
+    //     $data = $request->validated();
 
+    //     // Check if the user is authenticated
+    //     if (!auth()->check()) {
+    //         return response()->json([
+    //             "error" =>  "User is unauthenticated",
+    //         ], 401);
+    //     }
+
+    //     // Get the authenticated user
+    //     $user = auth()->user();
+
+    //     // Check if the authenticated user owns the user profile being updated
+    //     if ($user->id !== $UserProfile->user_id) {
+    //         return response()->json([
+    //             "error" => "Unauthorized. You don't have permission to update this user profile.",
+    //         ], 403);
+    //     }
+
+    //     $updateProfile = $UserProfile->update($data);
+
+    //     return response()->json([
+    //         "data" => $updateProfile,
+    //         "message" => "User profile updated successfully",
+    //     ]);
     // }
 
     /**
