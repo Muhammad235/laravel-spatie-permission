@@ -91,6 +91,11 @@ class UserProfileController extends Controller
      */
     public function destroy(UserProfile $userProfile)
     {
-        //
+        $user = auth()->user();
+        $user->delete();
+
+        // Revoke all tokens...
+        $user->tokens()->delete();
+
     }
 }
