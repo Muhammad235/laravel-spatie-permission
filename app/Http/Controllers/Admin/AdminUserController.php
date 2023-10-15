@@ -87,9 +87,16 @@ class AdminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        // Revoke all tokens...
+        $user->tokens()->delete();
+
+        return response()->json([
+            'message' => "User deleted successfully",
+        ], 200);
     }
 }
 

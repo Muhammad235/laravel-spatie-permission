@@ -48,6 +48,7 @@ Route::prefix('v1')->middleware(['treblle'])->group(function (){
             Route::post('/logout', [AdminAuthController::class, 'logout']);
             Route::get('/users/{user:id}/roles', [AdminRolesController::class, 'show']);
             Route::get('/users/{user:id}/permissions', [AdminPermissionsController::class, 'show']);
+            Route::post('/users/{user:id}/roles', [AdminRolesController::class, 'changeRole']);
         });
 
     });
