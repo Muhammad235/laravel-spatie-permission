@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 */
 
 
-Route::prefix('v1')->group(function (){
+Route::prefix('v1')->middleware(['treblle'])->group(function (){
 
     Route::group(['prefix' => 'users'], function() {
         Route::post('signup', [UserAuthController::class, 'store']);
@@ -42,14 +42,13 @@ Route::prefix('v1')->group(function (){
         Route::post('login', [AdminAuthController::class, 'login']);
 
         Route::middleware(['auth:sanctum', 'role:super-admin'])->group(function() {
-            Route::get('/users', [AdminUserController::class, 'index']);
+            Route::apiResource('/users', AdminUserController::class);
             Route::post('/logout', [AdminAuthController::class, 'logout']);
         });
 
     });
 
 });
-
 
 
 
