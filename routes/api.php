@@ -6,6 +6,8 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminRolesController;
+use App\Http\Controllers\Admin\AdminPermissionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,8 @@ Route::prefix('v1')->middleware(['treblle'])->group(function (){
         Route::middleware(['auth:sanctum', 'role:super-admin'])->group(function() {
             Route::apiResource('/users', AdminUserController::class);
             Route::post('/logout', [AdminAuthController::class, 'logout']);
+            Route::get('/users/{user:id}/roles', [AdminRolesController::class, 'show']);
+            Route::get('/users/{user:id}/permissions', [AdminPermissionsController::class, 'show']);
         });
 
     });
