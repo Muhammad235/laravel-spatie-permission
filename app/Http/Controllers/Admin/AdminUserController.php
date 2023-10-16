@@ -84,6 +84,37 @@ class AdminUserController extends Controller
         //
     }
 
+    public function suspend(User $user)
+    {
+
+       $updateStatus = $user->userProfile->update(['active' => false]);
+
+        if ($updateStatus) {
+            return response()->json([
+                'message' => "User suspended successfully",
+            ], 200);
+        }else {
+            return response()->json([
+                'error' => "Could not suspend User, due to internal server erorr",
+            ], 500);
+        }
+    }
+
+    public function activate(User $user)
+    {
+        $updateStatus = $user->userProfile->update(['active' => true]);
+
+        if ($updateStatus) {
+            return response()->json([
+                'message' => "User activated successfully",
+            ], 200);
+        }else {
+            return response()->json([
+                'error' => "Could not suspend User, due to internal server erorr",
+            ], 500);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
