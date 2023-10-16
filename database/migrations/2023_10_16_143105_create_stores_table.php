@@ -17,8 +17,8 @@ return new class extends Migration
             ->constrained('users')
             ->cascadeonUpdate()
             ->restrictOnDelete();
-            $table->string('name', 30)->unique();
-            $table->string();
+            $table->string('name')->unique();
+            $table->text('details');
             $table->timestamps();
         });
     }

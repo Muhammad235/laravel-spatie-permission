@@ -17,7 +17,9 @@ class StoreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            // 'owner_id' => User::all()->random(),
+            'name' =>  $this->faker->company(),
+            'details' =>  $this->faker->paragraphs(),
         ];
     }
 }

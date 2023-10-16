@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Store;
+use App\Models\UserProfile;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class StoreSeeder extends Seeder
 {
@@ -12,6 +15,17 @@ class StoreSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $fashionStore = Store::factory()->create();
+
+        User::factory()->count(1)
+        ->has(UserProfile::factory())
+        ->has($fashionStore)
+        ->create()
+        ->each(
+            function($user){
+                $user->assignRole('store-owner');
+            }
+        );
     }
 }
+

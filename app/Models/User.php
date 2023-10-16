@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Store;
 use App\Models\UserProfile;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -49,6 +50,11 @@ class User extends Authenticatable
     public function userProfile()
     {
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function stores()
+    {
+        return $this->hasMany(Store::class, 'owner_id');
     }
 
 }
